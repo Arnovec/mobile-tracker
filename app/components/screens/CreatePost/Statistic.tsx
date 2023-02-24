@@ -6,7 +6,7 @@ import Map from "./../../blocks/Map";
 import Navbar from '../../../navigations/Navbar';
 import * as Location from 'expo-location';
 import { Trajectory, Training } from "./../../../types";
-import { finishTraining } from '../../../scrypts/request';
+import Request from '../../../scrypts/request';
 import defaultStyles from '../../../styles/defailtStyles';
 
 export default function Statistic({ navigation }: any) {
@@ -56,7 +56,7 @@ export default function Statistic({ navigation }: any) {
     async function saveTrack() {
         console.log("Сохранение");
         try {
-            const training = await finishTraining(trajectory);
+            const training = await (await Request.finishTraining(trajectory)).json();
             setTrajectory([]);
             navigation.navigate('Post', {
                 id: training.id,

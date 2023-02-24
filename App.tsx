@@ -4,14 +4,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Navigation from './app/navigations/Navigation';
 import defailtStyles from './app/styles/defailtStyles';
+import { AuthProvider } from './app/context/AuthContext';
 
 function App() {
 
   return (
-    <SafeAreaView style={styles.SafeAreaView}>
-      <StatusBar backgroundColor={defailtStyles.colors.praimaryColor} />
-      <Navigation />
-    </SafeAreaView >
+    <AuthProvider>
+      <SafeAreaView style={styles.SafeAreaView}>
+        <StatusBar backgroundColor={defailtStyles.colors.praimaryColor} />
+        <Navigation />
+      </SafeAreaView >
+    </AuthProvider>
   );
 }
 

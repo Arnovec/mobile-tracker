@@ -25,7 +25,6 @@ export default function Map(props: MapProps) {
     // }, []);
 
     useEffect(() => {
-        console.log("Траектория изменена");
         if (props.trajectory.length != 0) {
             setTrajectory(props.trajectory.map(elem => {
                 return {

@@ -1,3 +1,8 @@
+type Location = {
+    latitude: number,
+    longitude: number,
+}
+
 type Trajectory = {
     latitude: number,
     longitude: number,
@@ -10,4 +15,4 @@ type Training = {
 }
 
 
-export { Trajectory, Training };
+export { Location, Trajectory, Training };

@@ -1,6 +1,36 @@
 import MapView, { Marker, MarkerAnimated, Region } from 'react-native-maps';
 import { StyleSheet, Image, TouchableOpacity, Text, View, ScrollView, Button } from 'react-native';
 import { useState, useRef, useEffect } from 'react';
+import * as TaskManager from 'expo-task-manager';
+import * as Location from 'expo-location';
+
+// const LOCATION_TASK_NAME = 'background-location-task';
+
+// const requestPermissions = async () => {
+//     const { status: foregroundStatus } = await Location.requestForegroundPermissionsAsync();
+//     if (foregroundStatus === 'granted') {
+//         const { status: backgroundStatus } = await Location.requestBackgroundPermissionsAsync();
+//         if (backgroundStatus === 'granted') {
+//             await Location.startLocationUpdatesAsync(LOCATION_TASK_NAME, {
+//                 deferredUpdatesInterval: 10,
+//             });
+//         }
+//     }
+// };
+
+// TaskManager.defineTask(LOCATION_TASK_NAME, ({ data, error }) => {
+//     if (error) {
+//         // Error occurred - check `error.message` for more details.
+//         return;
+//     }
+//     if (data) {
+//         // @ts-ignore
+//         const { locations } = data;
+//         console.log(data);
+
+//         // do something with the locations captured in the background
+//     }
+// });
 
 export default function Temp() {
     const mapRef = useRef<any>(null);
@@ -11,7 +41,7 @@ export default function Temp() {
         longitudeDelta: 0.0421,
     }
     //  useState<MapView | null>(null);
-    const [region, setRegion] = useState<Region|undefined>(undefined);
+    const [region, setRegion] = useState<Region | undefined>(undefined);
     const [mapSnapshot, setSnapshot] = useState<any>('https://reactjs.org/logo-og.png');
 
     const coordinate = {
@@ -19,10 +49,19 @@ export default function Temp() {
         longitude: -122.4324,
     };
 
-    useEffect(()=>{
+    function qwe() {
+        console.log("abw")
+    }
+
+    useEffect(() => {
         console.log(region);
-    },[region])
-    
+    }, [region])
+
+    useEffect(() => {
+
+
+    }, [])
+
 
     function onRegionChange(region_: any) {
         console.log(region_)
@@ -31,13 +70,12 @@ export default function Temp() {
     async function takeSnapshot() {
         console.log("qwe");
 
-        console.log(mapRef.current.animateToRegion);
+        try{
+
+        }catch(error){
+            console.log(error);
+        }
         // mapRef.current.animateToRegion(region1, 350);
-        setRegion(region1);
-        setTimeout(()=>{
-            setRegion(undefined);
-            console.log("uspel")
-        },100);
 
         // const duration = 500
 
@@ -47,14 +85,14 @@ export default function Temp() {
         //     duration
         // );
 
-        const snapshot = await mapRef.current.takeSnapshot({
-            width: 300,      // optional, when omitted the view-width is used
-            height: 300,     // optional, when omitted the view-height is used
-            format: 'png',   // image formats: 'png', 'jpg' (default: 'png')
-            result: 'file'   // result types: 'file', 'base64' (default: 'file')
-        });
-        console.log(snapshot);
-        setSnapshot(snapshot);
+        // const snapshot = await mapRef.current.takeSnapshot({
+        //     width: 300,      // optional, when omitted the view-width is used
+        //     height: 300,     // optional, when omitted the view-height is used
+        //     format: 'png',   // image formats: 'png', 'jpg' (default: 'png')
+        //     result: 'file'   // result types: 'file', 'base64' (default: 'file')
+        // });
+        // console.log(snapshot);
+        // setSnapshot(snapshot);
     }
 
     //  {uri: 'asset:/favicon.png'}
@@ -69,12 +107,12 @@ export default function Temp() {
                 region={region}
                 initialRegion={region1}
                 scrollEnabled={false}
-                onRegionChangeComplete={()=>{
+                onRegionChangeComplete={() => {
                     console.log("komplet")
                 }}
-                // onRegionChange={(region_)=>{
-                //     setRegion(region_)
-                // }}
+            // onRegionChange={(region_)=>{
+            //     setRegion(region_)
+            // }}
             >
                 {/* <Marker coordinate={coordinate} /> */}
                 <MarkerAnimated
@@ -82,9 +120,9 @@ export default function Temp() {
                 />
             </MapView>
             <Image style={styles.img} source={{ uri: mapSnapshot }} />
-            <Button onPress={()=>{
+            <Button onPress={() => {
                 takeSnapshot();
-            }} title="Take Snapshot"/>
+            }} title="Акшон" />
             <TouchableOpacity onPress={takeSnapshot}>
                 <Text>Take Snapshot</Text>
             </TouchableOpacity>
